@@ -15,6 +15,13 @@ const MY_GITHUB_REPO = 'https://github.com/mrmccormack/imd-learning-tabris'
 // global variables
 let numWins = 0;
 
+    var streakCounter01 = 0;
+    var streakCounter02 = 0;
+    var streakCounter03 = 0;
+    var streakCounter04 = 0;
+    var streakCounter05 = 0;
+    var streakCounter06 = 0;
+
 // Create a text input field with input finished listener
 
 let userText = new TextInput({
@@ -38,10 +45,70 @@ let button = new Button({
     top: 'prev() 10',
     text: 'Roll Dice'
   })
+
   .on('select', () => {
     casinoimage.height = 1;
     var rand = 1 + Math.floor(Math.random() * 6);
+    console.log(rand);
 
+      
+    //**------------**
+    //creating if statemnts to detect rolling the same number twice in a row
+    //if/else staments checking for numbers (could maybe use case but not as familiar)
+    if (rand == 1){
+        streakCounter01 = streakCounter01 + 1;
+        console.log("01 streak is at = " + streakCounter01);
+        streakCounter02 = 0;
+        streakCounter03 = 0;
+        streakCounter04 = 0;
+        streakCounter05 = 0;
+        streakCounter06 = 0;
+    } else if (rand == 2){
+        streakCounter02 += 1;
+        console.log("02 streak is at = " + streakCounter02);
+        streakCounter01 = 0;
+        streakCounter03 = 0;
+        streakCounter04 = 0;
+        streakCounter05 = 0;
+        streakCounter06 = 0;
+    } else if (rand == 3){
+        streakCounter03 += 1;
+        console.log("03 streak is at = " + streakCounter03);
+        streakCounter01 = 0;
+        streakCounter02 = 0;
+        streakCounter04 = 0;
+        streakCounter05 = 0;
+        streakCounter06 = 0;
+    } else if (rand == 4){
+        streakCounter04 += 1;
+        console.log("04 streak is at = " + streakCounter04);
+        streakCounter01 = 0;
+        streakCounter02 = 0;
+        streakCounter03 = 0;
+        streakCounter05 = 0;
+        streakCounter06 = 0;
+    } else if (rand == 5){
+        streakCounter05 += 1;
+        console.log("05 streak is at = " + streakCounter05);
+        streakCounter01 = 0;
+        streakCounter02 = 0;
+        streakCounter03 = 0;
+        streakCounter04 = 0;
+        streakCounter06 = 0;
+    } else if (rand == 6){
+        streakCounter06 += 1;
+        console.log("06 streak is at = " + streakCounter06);
+        streakCounter01 = 0;
+        streakCounter02 = 0;
+        streakCounter03 = 0;
+        streakCounter04 = 0;
+        streakCounter06 = 0;
+    } else {
+        
+    }
+
+    //**-------------**
+ 
     image1.image = IMAGE_PATH + rand + '.png';
 
     if (rand == 6) {
@@ -50,7 +117,7 @@ let button = new Button({
       winnerimage.image = IMAGE_PATH + 'winner.jpg';
     } else {
       label.text = userText.text  + ' - Try again- Wins so far ' + numWins;
-      winnerimage.image = '';
+      winnerimage.image = ''; 
     }
 
     if (numWins == 5){
@@ -58,7 +125,26 @@ let button = new Button({
       image1.image = IMAGE_PATH + 'whitedice.png';
       winnerimage.image = '';
       numWins = 0;
+    } else if (streakCounter01 == 2 
+               || streakCounter02 == 2
+               || streakCounter03 == 2 
+               || streakCounter04 == 2
+               || streakCounter05 == 2
+               || streakCounter06 == 2){
+        label.text = userText.text + "WINNER! You got two in a row!";
+        image1.image = IMAGE_PATH + rand + '.png';
+        winnerimage.image = IMAGE_PATH + 'winner.jpg';
+        numWins = numWins + 1 ;
+        streakCounter01 = 0;
+        streakCounter02 = 0;
+        streakCounter03 = 0;
+        streakCounter04 = 0;
+        streakCounter05 = 0;
+        streakCounter06 = 0;
+    } else {
+        console.log("No winners this roll");
     }
+    
 
   }).appendTo(ui.contentView);
 
